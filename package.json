@@ -1,0 +1,26 @@
+{
+  "name": "tiktok-video-uploder-playwright",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "build": "tsup src/index.ts --format cjs,esm --dts"
+  },
+  "keywords": [],
+  "author": "Second Phantom <second2phantom@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
+    "ts-jest": "^29.1.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "playwright": "^1.40.1",
+    "zod": "^3.22.4"
+  }
+}
