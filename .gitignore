@@ -5,3 +5,4 @@ scripts
 .env
 .vscode
 .npmtoken
+*.mp4
