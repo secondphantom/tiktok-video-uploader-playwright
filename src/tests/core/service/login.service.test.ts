@@ -14,6 +14,10 @@ describe("Login Service", () => {
     loginService = new LoginService(browserInstance);
   });
 
+  afterAll(async () => {
+    await browserInstance.closeBrowser();
+  });
+
   test("Login", async () => {
     const { isLogin } = await loginService.login();
 

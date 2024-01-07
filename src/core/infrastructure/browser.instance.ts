@@ -1,4 +1,4 @@
-import { BrowserContext, LaunchOptions, Page, chromium } from "playwright";
+import { BrowserContext, LaunchOptions, Page, firefox } from "playwright";
 import fs from "fs";
 
 export type BrowserInstanceConstructorInput = {
@@ -12,7 +12,7 @@ export class BrowserInstance {
   private browserContext: BrowserContext | undefined;
   private page: Page | undefined;
   private UPLOAD_URL =
-    "https://www.tiktok.com/creator-center/upload?from=upload";
+    "https://www.tiktok.com/creator-center/upload?from=upload&lang=en";
 
   constructor({
     authFilePath,
@@ -50,7 +50,7 @@ export class BrowserInstance {
       : { headless: true, setAuth: true };
     if (this.browserContext) return;
 
-    const browser = await chromium.launch({
+    const browser = await firefox.launch({
       headless: headless === undefined ? true : false,
       ...this.launchOptions,
     });
@@ -61,11 +61,13 @@ export class BrowserInstance {
         storageState: auth,
         userAgent:
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+        locale: "en",
       });
     } else {
       this.browserContext = await browser.newContext({
         userAgent:
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+        locale: "en",
       });
     }
   };
@@ -113,11 +115,11 @@ export class BrowserInstance {
 
   goto = async (url: string) => {
     if (!this.page) throw new Error(`[ERROR] Page Not Launched`);
-    await this.page.goto(url, { waitUntil: "load" });
+    await this.page.goto(url, { waitUntil: "networkidle" });
   };
 
   private internalGoto = async (url: string, page: Page) => {
-    await page.goto(url, { waitUntil: "load" });
+    await page.goto(url, { waitUntil: "networkidle" });
   };
 
   goLoginPage = async () => {
@@ -134,4 +136,8 @@ export class BrowserInstance {
   };
 
   getPage = () => this.page!;
+
+  goUploadPage = async () => {
+    await this.page!.goto(this.UPLOAD_URL, { waitUntil: "networkidle" });
+  };
 }
