@@ -42,11 +42,5 @@ describe("Video Service", () => {
     };
 
     await videoService.upload(dto);
-
-    await new Promise((res) => {
-      setTimeout(() => {
-        res(null);
-      }, 180000);
-    });
   }, 180000);
 });

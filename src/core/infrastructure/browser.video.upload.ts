@@ -9,6 +9,9 @@ export class BrowserVideoUpload {
   }
 
   run = async (dto: UploadVideoDto) => {
+    if (!this.page) {
+      this.page = this.browserInstance.getPage();
+    }
     const { filePath, meta, config } = dto;
 
     await this.browserInstance.goUploadPage();
@@ -32,7 +35,9 @@ export class BrowserVideoUpload {
     });
 
     const locator = this.page.frameLocator("iframe");
-    await locator.getByRole("button").first().click();
+    const uploadBtnLocator = locator.getByRole("button").first();
+
+    await uploadBtnLocator.click();
 
     const fileChooser = await fileChooserPromise;
     await fileChooser.setFiles(filePath);
