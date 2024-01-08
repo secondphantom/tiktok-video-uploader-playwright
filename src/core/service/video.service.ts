@@ -1,27 +1,19 @@
 import { BrowserInstance } from "../infrastructure/browser.instance";
 import { BrowserVideoUpload } from "../infrastructure/browser.video.upload";
 
-export interface UploadConfig {
-  config?: {
-    visibility?: "public" | "private";
-    copyrightCheck?: boolean;
-  };
-}
-
-export interface VideoFileSchema {
+export type UploadVideoDto = {
   filePath: {
     video: string;
   };
-}
-
-export interface VideoMetaSchema {
   meta: {
     title: string;
     tags?: string[];
   };
-}
-
-export type UploadVideoDto = VideoFileSchema & VideoMetaSchema & UploadConfig;
+  config?: {
+    visibility?: "public" | "private";
+    copyrightCheck?: boolean;
+  };
+};
 
 export class VideoService {
   private browserVideoUpload: BrowserVideoUpload;
