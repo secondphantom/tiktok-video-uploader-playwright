@@ -2,7 +2,7 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  testMatch: ["<rootDir>/src/tests/**/video.service.test.ts"],
+  testMatch: ["<rootDir>/src/tests/**/video.controller.test.ts"],
   verbose: true,
   forceExit: true,
   clearMocks: true,
