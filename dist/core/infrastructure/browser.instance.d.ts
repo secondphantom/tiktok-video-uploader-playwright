@@ -9,12 +9,14 @@ export declare class BrowserInstance {
     private browserContext;
     private page;
     private UPLOAD_URL;
+    private HOME_URL;
     constructor({ authFilePath, launchOptions, }: BrowserInstanceConstructorInput);
     launch: () => Promise<void>;
     openBrowser: (initConfig?: {
         browserType?: "chromium" | "firefox";
         headless?: boolean;
         setAuth?: boolean;
+        locale?: string;
     }) => Promise<void>;
     closeBrowser: () => Promise<void>;
     private getAuth;

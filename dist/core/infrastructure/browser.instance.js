@@ -18,6 +18,7 @@ const fs_1 = __importDefault(require("fs"));
 class BrowserInstance {
     constructor({ authFilePath, launchOptions, }) {
         this.UPLOAD_URL = "https://www.tiktok.com/creator-center/upload?from=upload&lang=en";
+        this.HOME_URL = "https://www.tiktok.com";
         this.launch = () => __awaiter(this, void 0, void 0, function* () {
             yield this.closeBrowser();
             try {
@@ -36,8 +37,9 @@ class BrowserInstance {
                 headless: true,
                 setAuth: true,
                 browserType: "firefox",
+                locale: "en",
             };
-            const { headless, setAuth, browserType } = Object.assign(Object.assign({}, defaultInitConfig), initConfig);
+            const { headless, setAuth, browserType, locale } = Object.assign(Object.assign({}, defaultInitConfig), initConfig);
             if (this.browserContext)
                 return;
             let browser;
@@ -52,13 +54,13 @@ class BrowserInstance {
                 this.browserContext = yield browser.newContext({
                     storageState: auth,
                     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-                    locale: "en",
+                    locale,
                 });
             }
             else {
                 this.browserContext = yield browser.newContext({
                     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-                    locale: "en",
+                    locale,
                 });
             }
         });
@@ -113,9 +115,10 @@ class BrowserInstance {
                 headless: false,
                 setAuth: false,
                 browserType: "chromium",
+                locale: undefined,
             });
             const page = yield this.openPage();
-            yield this.internalGoto(this.UPLOAD_URL, page);
+            yield this.internalGoto(this.HOME_URL, page);
             return page;
         });
         this.saveAuthFile = () => __awaiter(this, void 0, void 0, function* () {

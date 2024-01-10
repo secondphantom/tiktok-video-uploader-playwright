@@ -20,6 +20,7 @@ export class BrowserInstance {
   private page: Page | undefined;
   private UPLOAD_URL =
     "https://www.tiktok.com/creator-center/upload?from=upload&lang=en";
+  private HOME_URL = "https://www.tiktok.com";
 
   constructor({
     authFilePath,
@@ -52,13 +53,15 @@ export class BrowserInstance {
     browserType?: "chromium" | "firefox";
     headless?: boolean;
     setAuth?: boolean;
+    locale?: string;
   }) => {
     const defaultInitConfig = {
       headless: true,
       setAuth: true,
       browserType: "firefox",
+      locale: "en",
     };
-    const { headless, setAuth, browserType } = {
+    const { headless, setAuth, browserType, locale } = {
       ...defaultInitConfig,
       ...initConfig,
     };
@@ -83,13 +86,13 @@ export class BrowserInstance {
         storageState: auth,
         userAgent:
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-        locale: "en",
+        locale,
       });
     } else {
       this.browserContext = await browser.newContext({
         userAgent:
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-        locale: "en",
+        locale,
       });
     }
   };
@@ -150,9 +153,10 @@ export class BrowserInstance {
       headless: false,
       setAuth: false,
       browserType: "chromium",
+      locale: undefined,
     });
     const page = await this.openPage();
-    await this.internalGoto(this.UPLOAD_URL, page);
+    await this.internalGoto(this.HOME_URL, page);
     return page;
   };
 
