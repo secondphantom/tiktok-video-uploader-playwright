@@ -35,7 +35,7 @@ export class BrowserVideoUpload {
     });
 
     const locator = this.page.frameLocator("iframe");
-    const uploadBtnLocator = locator.getByRole("button").first();
+    const uploadBtnLocator = locator.getByLabel("Select file");
 
     await uploadBtnLocator.click();
 

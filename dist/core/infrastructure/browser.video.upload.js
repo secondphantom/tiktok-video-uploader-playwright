@@ -33,7 +33,7 @@ class BrowserVideoUpload {
                 timeout: 15000,
             });
             const locator = this.page.frameLocator("iframe");
-            const uploadBtnLocator = locator.getByRole("button").first();
+            const uploadBtnLocator = locator.getByLabel("Select file");
             yield uploadBtnLocator.click();
             const fileChooser = yield fileChooserPromise;
             yield fileChooser.setFiles(filePath);
