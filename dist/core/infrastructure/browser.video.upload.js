@@ -45,11 +45,21 @@ class BrowserVideoUpload {
             const tagStr = tags ? tags.map((v) => `#${v}`).join(" ") : "";
             const inputStr = `${title} ${tagStr}`;
             const captionLocator = frameLocator.getByLabel("Caption");
-            yield captionLocator.click();
-            yield this.page.keyboard.press("Control+A");
-            yield this.delay(500);
-            yield this.page.keyboard.press("Backspace");
-            yield this.delay(500);
+            let count = 0;
+            let limit = 10;
+            let tempTitle = (yield captionLocator.allInnerTexts())[0];
+            while (tempTitle !== "\n") {
+                yield captionLocator.click();
+                yield this.page.keyboard.press("Control+A");
+                yield this.delay(500);
+                yield this.page.keyboard.press("Backspace");
+                yield this.delay(500);
+                tempTitle = (yield captionLocator.allInnerTexts())[0];
+                count++;
+                if (count > limit) {
+                    throw new Error("[Set Meta]Fail set title");
+                }
+            }
             yield captionLocator.click();
             yield this.page.keyboard.type(inputStr);
             yield this.delay(2000);
