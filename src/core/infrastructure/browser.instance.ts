@@ -1,4 +1,11 @@
-import { BrowserContext, LaunchOptions, Page, firefox } from "playwright";
+import {
+  Browser,
+  BrowserContext,
+  LaunchOptions,
+  Page,
+  chromium,
+  firefox,
+} from "playwright";
 import fs from "fs";
 
 export type BrowserInstanceConstructorInput = {
@@ -42,18 +49,33 @@ export class BrowserInstance {
   };
 
   openBrowser = async (initConfig?: {
+    browserType?: "chromium" | "firefox";
     headless?: boolean;
     setAuth?: boolean;
   }) => {
-    const { headless, setAuth } = initConfig
-      ? initConfig
-      : { headless: true, setAuth: true };
+    const defaultInitConfig = {
+      headless: true,
+      setAuth: true,
+      browserType: "firefox",
+    };
+    const { headless, setAuth, browserType } = {
+      ...defaultInitConfig,
+      ...initConfig,
+    };
     if (this.browserContext) return;
 
-    const browser = await firefox.launch({
-      headless: headless === undefined ? true : false,
-      ...this.launchOptions,
-    });
+    let browser: Browser;
+    if (browserType === "chromium") {
+      browser = await chromium.launch({
+        headless,
+        ...this.launchOptions,
+      });
+    } else {
+      browser = await firefox.launch({
+        headless,
+        ...this.launchOptions,
+      });
+    }
 
     if (setAuth) {
       const auth = await this.getAuth();
@@ -123,7 +145,12 @@ export class BrowserInstance {
   };
 
   goLoginPage = async () => {
-    await this.openBrowser({ headless: false, setAuth: false });
+    await this.closeBrowser();
+    await this.openBrowser({
+      headless: false,
+      setAuth: false,
+      browserType: "chromium",
+    });
     const page = await this.openPage();
     await this.internalGoto(this.UPLOAD_URL, page);
     return page;

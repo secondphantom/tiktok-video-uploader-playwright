@@ -9,7 +9,7 @@ describe("Login Service", () => {
   beforeAll(() => {
     browserInstance = new BrowserInstance({
       authFilePath: process.env.AUTH_FILE_PATH!,
-      // launchOptions: { headless: false },
+      launchOptions: { headless: false },
     });
     loginService = new LoginService(browserInstance);
   });

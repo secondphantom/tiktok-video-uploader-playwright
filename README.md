@@ -3,7 +3,7 @@ You can upload a video to TikTok
 
 ## Install
 ```
-	npm i https://github.com/secondphantom/tiktok-video-uploader-playwright
+npm i https://github.com/secondphantom/tiktok-video-uploader-playwright
 ```
 
 ## Usage

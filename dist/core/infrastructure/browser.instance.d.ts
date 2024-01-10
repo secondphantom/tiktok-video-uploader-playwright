@@ -12,6 +12,7 @@ export declare class BrowserInstance {
     constructor({ authFilePath, launchOptions, }: BrowserInstanceConstructorInput);
     launch: () => Promise<void>;
     openBrowser: (initConfig?: {
+        browserType?: "chromium" | "firefox";
         headless?: boolean;
         setAuth?: boolean;
     }) => Promise<void>;

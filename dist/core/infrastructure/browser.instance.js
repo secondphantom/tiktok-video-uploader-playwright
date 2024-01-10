@@ -32,12 +32,21 @@ class BrowserInstance {
             yield this.goto(this.UPLOAD_URL);
         });
         this.openBrowser = (initConfig) => __awaiter(this, void 0, void 0, function* () {
-            const { headless, setAuth } = initConfig
-                ? initConfig
-                : { headless: true, setAuth: true };
+            const defaultInitConfig = {
+                headless: true,
+                setAuth: true,
+                browserType: "firefox",
+            };
+            const { headless, setAuth, browserType } = Object.assign(Object.assign({}, defaultInitConfig), initConfig);
             if (this.browserContext)
                 return;
-            const browser = yield playwright_1.firefox.launch(Object.assign({ headless: headless === undefined ? true : false }, this.launchOptions));
+            let browser;
+            if (browserType === "chromium") {
+                browser = yield playwright_1.chromium.launch(Object.assign({ headless }, this.launchOptions));
+            }
+            else {
+                browser = yield playwright_1.firefox.launch(Object.assign({ headless }, this.launchOptions));
+            }
             if (setAuth) {
                 const auth = yield this.getAuth();
                 this.browserContext = yield browser.newContext({
@@ -99,7 +108,12 @@ class BrowserInstance {
             yield page.goto(url, { waitUntil: "networkidle" });
         });
         this.goLoginPage = () => __awaiter(this, void 0, void 0, function* () {
-            yield this.openBrowser({ headless: false, setAuth: false });
+            yield this.closeBrowser();
+            yield this.openBrowser({
+                headless: false,
+                setAuth: false,
+                browserType: "chromium",
+            });
             const page = yield this.openPage();
             yield this.internalGoto(this.UPLOAD_URL, page);
             return page;
