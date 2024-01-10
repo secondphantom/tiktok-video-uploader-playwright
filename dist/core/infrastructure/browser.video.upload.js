@@ -25,7 +25,7 @@ class BrowserVideoUpload {
             yield this.setMeta(meta);
             yield this.setConfig(config);
             yield this.delay(5000);
-            yield this.post();
+            // await this.post();
             yield this.delay(5000);
         });
         this.setVideoFile = (filePath) => __awaiter(this, void 0, void 0, function* () {

@@ -25,7 +25,7 @@ export class BrowserVideoUpload {
     await this.setConfig(config);
     await this.delay(5000);
 
-    await this.post();
+    // await this.post();
     await this.delay(5000);
   };
 
