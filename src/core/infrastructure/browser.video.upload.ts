@@ -15,7 +15,7 @@ export class BrowserVideoUpload {
     const { filePath, meta, config } = dto;
 
     await this.browserInstance.goUploadPage();
-    await this.delay(1000);
+    await this.delay(5000);
 
     await this.setVideoFile(filePath.video);
     await this.delay(5000);
@@ -25,7 +25,7 @@ export class BrowserVideoUpload {
     await this.setConfig(config);
     await this.delay(5000);
 
-    // await this.post();
+    await this.post();
     await this.delay(5000);
   };
 

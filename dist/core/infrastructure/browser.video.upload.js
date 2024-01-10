@@ -19,13 +19,13 @@ class BrowserVideoUpload {
             }
             const { filePath, meta, config } = dto;
             yield this.browserInstance.goUploadPage();
-            yield this.delay(1000);
+            yield this.delay(5000);
             yield this.setVideoFile(filePath.video);
             yield this.delay(5000);
             yield this.setMeta(meta);
             yield this.setConfig(config);
             yield this.delay(5000);
-            // await this.post();
+            yield this.post();
             yield this.delay(5000);
         });
         this.setVideoFile = (filePath) => __awaiter(this, void 0, void 0, function* () {
