@@ -47,8 +47,6 @@ export class BrowserVideoUpload {
     const frameLocator = this.page.frameLocator("iframe");
     await this.waitUploadComplete(frameLocator);
     await this.delay(500);
-    const tagStr = tags ? tags.map((v) => `#${v}`).join(" ") : "";
-    const inputStr = `${title} ${tagStr}`;
     const captionLocator = frameLocator.getByLabel("Caption");
 
     let count = 0;
@@ -68,7 +66,18 @@ export class BrowserVideoUpload {
     }
 
     await captionLocator.click();
-    await this.page.keyboard.type(inputStr);
+    // set title
+    await this.page.keyboard.type(title);
+    // set tag
+    if (tags && tags.length > 0) {
+      await this.page.keyboard.type(" ");
+      for (const tag of tags) {
+        await this.page.keyboard.type(`#${tag}`);
+        await this.delay(3000);
+        await this.page.keyboard.press("Enter");
+        await this.delay(500);
+      }
+    }
     await this.delay(2000);
     await this.page.keyboard.press("Escape");
     return frameLocator;

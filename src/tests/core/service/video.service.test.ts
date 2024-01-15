@@ -33,7 +33,7 @@ describe("Video Service", () => {
       },
       meta: {
         title: "test",
-        tags: ["tagone", "tagtwo"],
+        tags: ["leagueoflegends", "리그오브레전드"],
       },
       config: {
         copyrightCheck: true,
