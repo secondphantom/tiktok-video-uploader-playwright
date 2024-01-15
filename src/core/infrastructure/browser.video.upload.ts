@@ -73,6 +73,8 @@ export class BrowserVideoUpload {
       await this.page.keyboard.type(" ");
       for (const tag of tags) {
         await this.page.keyboard.type(`#${tag}`);
+        await this.delay(500);
+        await this.page.keyboard.type(" ");
         await this.delay(3000);
         await this.page.keyboard.press("Enter");
         await this.delay(500);

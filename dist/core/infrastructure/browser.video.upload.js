@@ -66,6 +66,8 @@ class BrowserVideoUpload {
                 yield this.page.keyboard.type(" ");
                 for (const tag of tags) {
                     yield this.page.keyboard.type(`#${tag}`);
+                    yield this.delay(500);
+                    yield this.page.keyboard.type(" ");
                     yield this.delay(3000);
                     yield this.page.keyboard.press("Enter");
                     yield this.delay(500);
