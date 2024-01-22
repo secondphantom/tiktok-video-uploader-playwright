@@ -70,13 +70,13 @@ export class BrowserInstance {
     let browser: Browser;
     if (browserType === "chromium") {
       browser = await chromium.launch({
-        ...this.launchOptions,
         headless,
+        ...this.launchOptions,
       });
     } else {
       browser = await firefox.launch({
-        ...this.launchOptions,
         headless,
+        ...this.launchOptions,
       });
     }
 

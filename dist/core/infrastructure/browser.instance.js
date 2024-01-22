@@ -44,10 +44,10 @@ class BrowserInstance {
                 return;
             let browser;
             if (browserType === "chromium") {
-                browser = yield playwright_1.chromium.launch(Object.assign(Object.assign({}, this.launchOptions), { headless }));
+                browser = yield playwright_1.chromium.launch(Object.assign({ headless }, this.launchOptions));
             }
             else {
-                browser = yield playwright_1.firefox.launch(Object.assign(Object.assign({}, this.launchOptions), { headless }));
+                browser = yield playwright_1.firefox.launch(Object.assign({ headless }, this.launchOptions));
             }
             if (setAuth) {
                 const auth = yield this.getAuth();
