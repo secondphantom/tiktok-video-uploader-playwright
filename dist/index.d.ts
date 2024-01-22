@@ -5,7 +5,7 @@ export declare class TiktokVideoUploader {
     video: VideoController;
     constructor({ authFilePath, launchOptions, }: {
         authFilePath: string;
-        launchOptions: LaunchOptions;
+        launchOptions?: LaunchOptions;
     });
     login: () => Promise<{
         isLogin: boolean;

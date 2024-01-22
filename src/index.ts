@@ -14,7 +14,7 @@ export class TiktokVideoUploader {
     launchOptions,
   }: {
     authFilePath: string;
-    launchOptions: LaunchOptions;
+    launchOptions?: LaunchOptions;
   }) {
     const browserInstance = new BrowserInstance({
       authFilePath,
